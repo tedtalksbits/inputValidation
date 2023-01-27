@@ -1,0 +1,126 @@
+:root {
+    --invalid: rgb(255, 0, 72);
+    --border-radius: 5px;
+    --border-color: #ccc;
+    --border-color-focus: #333;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/*
+    ========================================
+    Input Group
+    ========================================
+*/
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--border-color-focus);
+}
+
+/*
+    ========================================
+    Inout Validation
+    ========================================
+*/
+/* if a child input of .input-group is not focus and invalid, add a red border to the input */
+.input-group input:not(:focus):invalid {
+    border-color: var(--invalid);
+}
+
+/*  
+    if .input-group have an input child that is not focus and is invalid, add style to .input psuedo after  
+*/
+.input-group:has(input:invalid:not(:focus)) .input::after {
+    content: attr(data-message);
+    color: var(--invalid);
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    animation: fadein 0.25s ease-in;
+}
+
+/* if .input-group have an input child that is not focus and is invalid, add style to .inpput */
+.input-group:has(input:invalid:not(:focus)) .input {
+    margin-bottom: 1rem;
+}
+
+/*
+    ========================================
+    Show Password Icon
+    ========================================
+*/
+
+.input {
+    position: relative;
+    transition: all 0.25s ease-in;
+}
+
+[data-icon='password'] {
+    position: absolute;
+    right: 0;
+    padding: 0.5rem;
+    top: 0;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.25s ease-in;
+    user-select: none;
+}
+
+[data-icon='password']:hover {
+    color: rgb(0, 0, 0);
+}
+
+[data-icon='password']:active {
+    background: rgba(0, 165, 248, 0.436);
+    transform: scale(0.95);
+}
+
+/*
+    ========================================
+    Animations
+    ========================================
+*/
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
